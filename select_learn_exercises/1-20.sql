@@ -4,18 +4,18 @@
 
 SELECT model,
        speed,
-       hd
+	   hd
   FROM pc
  WHERE price < 500
 
 
  
 --2. Найдите производителей принтеров.
---   Вывести: maker
+--    Вывести: maker
 
 SELECT DISTINCT maker
-  	   FROM Product
-	  WHERE type = 'Printer'
+  FROM Product
+ WHERE type = 'Printer'
 
 
  
@@ -23,8 +23,8 @@ SELECT DISTINCT maker
 --   и размеры экранов ПК-блокнотов, цена которых превышает 1000 дол.
 
 SELECT DISTINCT maker
-  	   FROM Product
- 	  WHERE type = 'Printer'
+  FROM Product
+ WHERE type = 'Printer'
 
 
  
@@ -42,12 +42,12 @@ SELECT *
 
 SELECT model,
        speed,
-       hd
+	   hd
   FROM pc
  WHERE (
        cd = '12x'
     OR cd = '24x'
-       )
+	   )
    AND price < 600
    
    
@@ -60,8 +60,8 @@ SELECT model,
 SELECT DISTINCT maker,
                 laptop.speed
            FROM product
-	   JOIN laptop
-	     ON laptop.model = product.model
+		   JOIN laptop
+		     ON laptop.model = product.model
           WHERE hd >= 10
 
 
@@ -102,7 +102,7 @@ SELECT product.model,
 SELECT DISTINCT maker
            FROM product
           WHERE type = 'pc'
-         EXCEPT
+EXCEPT
 SELECT DISTINCT maker
            FROM product
           WHERE type = 'laptop'
@@ -114,10 +114,10 @@ SELECT DISTINCT maker
 
 SELECT DISTINCT maker
            FROM product
-           JOIN pc
-	     ON pc.model = product.model
+		   JOIN pc
+		     ON pc.model = product.model
           WHERE type = 'pc'
-	    AND speed >= 450
+		    AND speed >= 450
        ORDER BY maker
 
 
@@ -126,12 +126,12 @@ SELECT DISTINCT maker
 --    Вывести: model, price
 
 SELECT DISTINCT model,
-		price
-	   FROM printer
+				price
+		   FROM printer
           WHERE price = (
                          SELECT MAX(price)
-		  	   FROM printer
-			)
+		                   FROM printer
+						)
 
 
 	
@@ -157,10 +157,10 @@ SELECT AVG(speed)
 SELECT AVG(speed)
   FROM PC
  WHERE model IN (
-		 SELECT model
-		   FROM product
-		  WHERE maker = 'A'
-		)
+				 SELECT model
+				   FROM product
+				  WHERE maker = 'A'
+				)
 				
 				
 				
@@ -168,8 +168,8 @@ SELECT AVG(speed)
 --    из таблицы Ships, имеющих не менее 10 орудий.
 
 SELECT ships.class,
-       name,
-       classes.country
+	   name,
+	   classes.country
   FROM classes
   JOIN ships
     ON ships.class = classes.class
@@ -195,16 +195,16 @@ HAVING COUNT(model) >= 2
 --    модель с меньшим номером, скорость и RAM.
 
 SELECT DISTINCT a.model,
-		b.model,
-		a.speed,
-		a.ram
-	   FROM pc AS a,
-		pc AS b
+				b.model,
+				a.speed,
+				a.ram
+		   FROM pc AS a,
+		        pc AS b
           WHERE (
-		 a.speed = b.speed
-	     AND a.ram = b.ram
-		)
-	    AND a.model > b.model
+		        a.speed = b.speed
+			AND a.ram = b.ram
+			    )
+		    AND a.model > b.model
        ORDER BY a.model DESC
 	   
 	   
@@ -214,15 +214,15 @@ SELECT DISTINCT a.model,
 --    Вывести: type, model, speed
 
 SELECT DISTINCT type,
-		laptop.model,
-		speed
-	   FROM product
+				laptop.model,
+				speed
+		   FROM product
            JOIN laptop
-	     ON laptop.model = product.model
+		     ON laptop.model = product.model
           WHERE speed < ALL (
-		             SELECT speed
-			     FROM pc
-			    )
+		                     SELECT speed
+							 FROM pc
+							)
 							
 							
 							
@@ -231,15 +231,15 @@ SELECT DISTINCT type,
 
 SELECT DISTINCT maker,
                 price
-	   FROM product
-	   JOIN printer
-	     ON printer.model = product.model
-	  WHERE color = 'y'
-	    AND price = (
-			 SELECT MIN(price)
-			   FROM printer
-			  WHERE color = 'y'
-			)
+		   FROM product
+		   JOIN printer
+		     ON printer.model = product.model
+		  WHERE color = 'y'
+		    AND price = (
+						 SELECT MIN(price)
+						   FROM printer
+						  WHERE color = 'y'
+						)
 
 
 
@@ -248,7 +248,7 @@ SELECT DISTINCT maker,
 --    Вывести: maker, средний размер экрана.
 
 SELECT maker,
-       AVG(screen)
+	   AVG(screen)
   FROM product
   JOIN laptop
     ON laptop.model = product.model
